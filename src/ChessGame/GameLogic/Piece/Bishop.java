@@ -30,6 +30,15 @@ public class Bishop implements Pieces{
                 e.printStackTrace();
             }
         }
+        else{
+            try{
+                imgBlack = ImageIO.read(new File("/Users/shahriar/Desktop/Chess/src/ChessGame/GameLogic/Piece/blackBishop.png"));
+                imgWhite = null;
+            }
+            catch (IOException e){
+                e.printStackTrace();
+            }
+        }
 
     }
 

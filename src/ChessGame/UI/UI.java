@@ -20,6 +20,7 @@ public class UI extends JFrame {
 
     public UI(){
         this.setTitle("Chess Game");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         gameBoard = new GameBoard();
         tileList = new JPanel[8][8];
         this.setSize(tile_size*8, tile_size*8);
@@ -44,7 +45,18 @@ public class UI extends JFrame {
         tile1 = gameBoard.getTile(7,3); tile2 = gameBoard.getTile(7,4);
         tile1.setOcc(true); tile2.setOcc(true);
         tile1.setPiece(new King(Color.WHITE)); tile2.setPiece(new Queen(Color.WHITE));
-
+        tile1 = gameBoard.getTile(0,0); tile2 = gameBoard.getTile(0,7);
+        tile1.setOcc(true); tile2.setOcc(true);
+        tile1.setPiece(new Rook(Color.BLACK)); tile2.setPiece(new Rook(Color.BLACK));
+        tile1 = gameBoard.getTile(0,1); tile2 = gameBoard.getTile(0,6);
+        tile1.setOcc(true); tile2.setOcc(true);
+        tile1.setPiece(new Knight(Color.BLACK)); tile2.setPiece(new Knight(Color.BLACK));
+        tile1 = gameBoard.getTile(0,2); tile2 = gameBoard.getTile(0,5);
+        tile1.setOcc(true); tile2.setOcc(true);
+        tile1.setPiece(new Bishop(Color.BLACK)); tile2.setPiece(new Bishop(Color.BLACK));
+        tile1 = gameBoard.getTile(0,3); tile2 = gameBoard.getTile(0,4);
+        tile1.setOcc(true); tile2.setOcc(true);
+        tile1.setPiece(new King(Color.BLACK)); tile2.setPiece(new Queen(Color.BLACK));
 
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
