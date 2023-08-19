@@ -26,37 +26,7 @@ public class UI extends JFrame {
         this.setSize(tile_size*8, tile_size*8);
         this.setLayout(new GridLayout(8,8));
         Container contentPane = getContentPane();
-        for(int i = 0; i < 8;i++){
-            Tile tile = gameBoard.getTile(6, i);
-            Tile tile3 = gameBoard.getTile(1,i);
-            tile.setPiece(new Pawn(Color.WHITE));
-            tile.setOcc(true);
-            tile3.setOcc(true); tile3.setPiece(new Pawn(Color.BLACK));
-        }
-        Tile tile1 = gameBoard.getTile(7,0); Tile tile2 = gameBoard.getTile(7,7);
-        tile1.setOcc(true); tile2.setOcc(true);
-        tile1.setPiece(new Rook(Color.WHITE)); tile2.setPiece(new Rook(Color.WHITE));
-        tile1 = gameBoard.getTile(7,1); tile2 = gameBoard.getTile(7,6);
-        tile1.setOcc(true); tile2.setOcc(true);
-        tile1.setPiece(new Knight(Color.WHITE)); tile2.setPiece(new Knight(Color.WHITE));
-        tile1 = gameBoard.getTile(7,2); tile2 = gameBoard.getTile(7,5);
-        tile1.setOcc(true); tile2.setOcc(true);
-        tile1.setPiece(new Bishop(Color.WHITE)); tile2.setPiece(new Bishop(Color.WHITE));
-        tile1 = gameBoard.getTile(7,3); tile2 = gameBoard.getTile(7,4);
-        tile1.setOcc(true); tile2.setOcc(true);
-        tile1.setPiece(new King(Color.WHITE)); tile2.setPiece(new Queen(Color.WHITE));
-        tile1 = gameBoard.getTile(0,0); tile2 = gameBoard.getTile(0,7);
-        tile1.setOcc(true); tile2.setOcc(true);
-        tile1.setPiece(new Rook(Color.BLACK)); tile2.setPiece(new Rook(Color.BLACK));
-        tile1 = gameBoard.getTile(0,1); tile2 = gameBoard.getTile(0,6);
-        tile1.setOcc(true); tile2.setOcc(true);
-        tile1.setPiece(new Knight(Color.BLACK)); tile2.setPiece(new Knight(Color.BLACK));
-        tile1 = gameBoard.getTile(0,2); tile2 = gameBoard.getTile(0,5);
-        tile1.setOcc(true); tile2.setOcc(true);
-        tile1.setPiece(new Bishop(Color.BLACK)); tile2.setPiece(new Bishop(Color.BLACK));
-        tile1 = gameBoard.getTile(0,3); tile2 = gameBoard.getTile(0,4);
-        tile1.setOcc(true); tile2.setOcc(true);
-        tile1.setPiece(new King(Color.BLACK)); tile2.setPiece(new Queen(Color.BLACK));
+
 
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
