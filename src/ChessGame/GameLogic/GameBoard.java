@@ -1,9 +1,15 @@
 package ChessGame.GameLogic;
 
+import ChessGame.GameLogic.Piece.Pieces;
+
 import java.awt.*;
+import java.util.ArrayList;
 
 public class GameBoard {
     private Tile[][] board;
+    private ArrayList<Pieces> P1Pieces;
+    private ArrayList<Pieces> P2Pieces;
+
     public GameBoard(){
         this.board = new Tile[8][8];
         int x = 1;

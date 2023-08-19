@@ -14,13 +14,17 @@ public class Knight implements Pieces{
     private Color color;
     private BufferedImage imgWhite;
     private BufferedImage imgBlack;
+    private Point[] Direction;
+
+
     @Override
-    public ArrayList<Tile> getMoves(){
-        return new ArrayList<Tile>();
+    public Point[] getDirection() {
+        return Direction;
     }
 
     public Knight(Color color) {
         this.color = color;
+        this.Direction = null;
         if(this.color.equals(Color.WHITE)){
             try {
                 imgWhite = ImageIO.read(new File("/Users/shahriar/Desktop/Chess/src/ChessGame/GameLogic/Piece/whiteKnight.png"));

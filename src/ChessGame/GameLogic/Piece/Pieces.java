@@ -8,7 +8,8 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 public interface Pieces {
-     ArrayList<Tile> getMoves();
+
+     Point[] getDirection();
      Color getColor();
      BufferedImage getImgWhite();
      BufferedImage getImgBlack();
