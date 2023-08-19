@@ -11,17 +11,24 @@ import java.util.ArrayList;
 
 public class Bishop implements Pieces{
     private final String type = "Bishop";
+    private Tile currentTile;
     private Color color;
     private BufferedImage imgWhite;
     private BufferedImage imgBlack;
     private Point[] direction;
 
     @Override
+    public Tile getCurrentTile() {
+        return currentTile;
+    }
+
+    @Override
     public Point[] getDirection() {
         return direction;
     }
 
-    public Bishop(Color color) {
+    public Bishop(Color color, Tile tile) {
+        this.currentTile = tile;
         this.color = color;
         if(this.color.equals(Color.WHITE)){
             try {

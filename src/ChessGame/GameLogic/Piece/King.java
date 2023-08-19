@@ -17,12 +17,20 @@ public class King implements Pieces{
 
     private Point[] direction;
 
+    private Tile currentTile;
+
+    @Override
+    public Tile getCurrentTile() {
+        return currentTile;
+    }
+
     @Override
     public Point[] getDirection() {
         return direction;
     }
 
-    public King(Color color) {
+    public King(Color color, Tile tile) {
+        this.currentTile = tile;
         this.color = color;
         if(this.color.equals(Color.WHITE)){
             try {
@@ -47,10 +55,10 @@ public class King implements Pieces{
         this.direction[1] = new Point(-1,0);
         this.direction[2] = new Point(0,1);
         this.direction[3] = new Point(0,-1);
-        this.direction[4] = new Point(0,0);
-        this.direction[5] = new Point(0,0);
-        this.direction[6] = new Point(0,0);
-        this.direction[7] = new Point(0,0);
+        this.direction[4] = new Point(1,1);
+        this.direction[5] = new Point(-1,-1);
+        this.direction[6] = new Point(1,-1);
+        this.direction[7] = new Point(-1,1);
 
     }
 

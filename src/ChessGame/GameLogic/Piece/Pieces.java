@@ -14,5 +14,6 @@ public interface Pieces {
      BufferedImage getImgWhite();
      BufferedImage getImgBlack();
      String getType();
+     Tile getCurrentTile();
 
 }

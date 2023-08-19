@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 public class Queen implements Pieces{
     private final String type = "Queen";
+    private Tile currentTile;
     private Color color;
     private BufferedImage imgWhite;
     private BufferedImage imgBlack;
@@ -18,11 +19,17 @@ public class Queen implements Pieces{
     private Point[] direction;
 
     @Override
+    public Tile getCurrentTile() {
+        return currentTile;
+    }
+
+    @Override
     public Point[] getDirection() {
         return direction;
     }
 
-    public Queen(Color color) {
+    public Queen(Color color, Tile tile) {
+        this.currentTile = tile;
         this.color = color;
         if(this.color.equals(Color.WHITE)){
             try {
@@ -47,10 +54,10 @@ public class Queen implements Pieces{
         this.direction[1] = new Point(-1,0);
         this.direction[2] = new Point(0,1);
         this.direction[3] = new Point(0,-1);
-        this.direction[4] = new Point(0,0);
-        this.direction[5] = new Point(0,0);
-        this.direction[6] = new Point(0,0);
-        this.direction[7] = new Point(0,0);
+        this.direction[4] = new Point(1,1);
+        this.direction[5] = new Point(-1,-1);
+        this.direction[6] = new Point(1,-1);
+        this.direction[7] = new Point(-1,1);
 
     }
 

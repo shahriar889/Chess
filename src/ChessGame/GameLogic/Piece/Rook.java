@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 public class Rook implements Pieces{
     private final String type = "Rook";
+    private Tile currentTile;
     private Color color;
     private BufferedImage imgWhite;
     private BufferedImage imgBlack;
@@ -18,11 +19,17 @@ public class Rook implements Pieces{
     private Point[] direction;
 
     @Override
+    public Tile getCurrentTile() {
+        return currentTile;
+    }
+
+    @Override
     public Point[] getDirection() {
         return direction;
     }
 
-    public Rook(Color color) {
+    public Rook(Color color, Tile tile) {
+        this.currentTile = tile;
         this.color = color;
         if(this.color.equals(Color.WHITE)){
             try {

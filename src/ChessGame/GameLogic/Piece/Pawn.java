@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 public class Pawn implements Pieces {
     private final String type = "Pawn";
+    private Tile currentTile;
     private Color color;
     private BufferedImage imgWhite;
     private BufferedImage imgBlack;
@@ -21,7 +22,13 @@ public class Pawn implements Pieces {
         return direction;
     }
 
-    public Pawn(Color color) {
+    @Override
+    public Tile getCurrentTile() {
+        return currentTile;
+    }
+
+    public Pawn(Color color, Tile tile) {
+        this.currentTile = tile;
         this.color = color;
         if(this.color.equals(Color.WHITE)){
             try {
