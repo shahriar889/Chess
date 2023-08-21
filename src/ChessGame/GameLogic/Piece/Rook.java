@@ -49,15 +49,11 @@ public class Rook implements Pieces{
                 e.printStackTrace();
             }
         }
-        this.direction = new Point[8];
-        this.direction[0] = new Point(1,0);
-        this.direction[1] = new Point(-1,0);
-        this.direction[2] = new Point(0,1);
-        this.direction[3] = new Point(0,-1);
-        this.direction[4] = new Point(1,1);
-        this.direction[5] = new Point(-1,-1);
-        this.direction[6] = new Point(1,-1);
-        this.direction[7] = new Point(-1,1);
+        this.direction = new Point[4];
+        this.direction[0] = new Point(1,0); // going down
+        this.direction[1] = new Point(-1,0); // going up
+        this.direction[2] = new Point(0,1); // going right
+        this.direction[3] = new Point(0,-1); //going left
 
     }
 

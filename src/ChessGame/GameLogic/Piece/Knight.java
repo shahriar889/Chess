@@ -49,14 +49,14 @@ public class Knight implements Pieces{
                 e.printStackTrace();
             }
         }
-        this.direction[0] = new Point(1,2);
-        this.direction[1] = new Point(-1,2);
-        this.direction[2] = new Point(2,1);
-        this.direction[3] = new Point(-2,1);
-        this.direction[4] = new Point(-1,-2);
-        this.direction[5] = new Point(1,-2);
-        this.direction[6] = new Point(2,-1);
-        this.direction[7] = new Point(-2,-1);
+        this.direction[0] = new Point(1,2);//going right 2 spaces and down 1 space
+        this.direction[1] = new Point(-1,2); // going right 2 spaces and up 1 space
+        this.direction[2] = new Point(2,1); // going right 1 space and down 2 spaces
+        this.direction[3] = new Point(-2,1); //going right 1 space and up 2 spaces
+        this.direction[4] = new Point(-1,-2); //going left 2 spaces and up 1 space
+        this.direction[5] = new Point(1,-2); //going left 2 spaces and down 1 space
+        this.direction[6] = new Point(2,-1);  //going left 1 spaces and down 2 spaces
+        this.direction[7] = new Point(-2,-1);  //going left 1 space and up 2 spaces
 
     }
 
