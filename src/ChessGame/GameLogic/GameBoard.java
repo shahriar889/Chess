@@ -71,8 +71,8 @@ public class GameBoard {
         tile1.setOcc(true); tile2.setOcc(true);
         tile1.setPiece(new King(Color.BLACK, tile1)); tile2.setPiece(new Queen(Color.BLACK, tile2));
         P1Pieces.add(tile1.getPiece()); P2Pieces.add(tile2.getPiece());
-        tile1 = this.getTile(5,4); tile1.setOcc(true); tile1.setPiece(new Pawn(Color.BLACK, tile1));
-        tile2 = this.getTile(3,3); tile2.setOcc(true); tile2.setPiece(new Knight(Color.white, tile2));
+//        tile1 = this.getTile(5,4); tile1.setOcc(true); tile1.setPiece(new Pawn(Color.BLACK, tile1));
+//        tile2 = this.getTile(3,3); tile2.setOcc(true); tile2.setPiece(new Knight(Color.white, tile2));
 
         for(int i = 0; i < 8; i++){
             for(int j = 0; j < 8; j++){

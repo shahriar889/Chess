@@ -63,6 +63,11 @@ public class King implements Pieces{
     }
 
     @Override
+    public void setCurrentTile(Tile currentTile) {
+        this.currentTile = currentTile;
+    }
+
+    @Override
     public BufferedImage getImgWhite() {
         return imgWhite;
     }

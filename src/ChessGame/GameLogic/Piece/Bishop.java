@@ -23,6 +23,11 @@ public class Bishop implements Pieces{
     }
 
     @Override
+    public void setCurrentTile(Tile currentTile) {
+        this.currentTile = currentTile;
+    }
+
+    @Override
     public Point[] getDirection() {
         return direction;
     }

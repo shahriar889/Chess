@@ -15,5 +15,6 @@ public interface Pieces {
      BufferedImage getImgBlack();
      String getType();
      Tile getCurrentTile();
+     void setCurrentTile(Tile tile);
 
 }

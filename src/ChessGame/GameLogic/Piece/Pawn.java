@@ -27,6 +27,11 @@ public class Pawn implements Pieces {
         return currentTile;
     }
 
+    @Override
+    public void setCurrentTile(Tile currentTile) {
+        this.currentTile = currentTile;
+    }
+
     public Pawn(Color color, Tile tile) {
         this.currentTile = tile;
         this.color = color;
