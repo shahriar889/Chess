@@ -243,31 +243,44 @@ public class GameBoard {
     }
 
     public boolean isCheck(int row, int col, Pieces pieces1, Pieces checkPiece){
-        if(checkPiece != null){
-            if(checkPiece.getCurrentTile() == board[row][col])
-                return false;
-        }
         ArrayList<Pieces> opp;
+        Tile tile = pieces1.getCurrentTile();
+        tile.setOcc(false);
+        tile.setPiece(null);
+        this.board[row][col].setOcc(true); this.board[row][col].setPiece(pieces1);
         if(pieces1.getColor() == Color.WHITE) {
             opp = P2Pieces;
         }
         else {
             opp = P1Pieces;
         }
-        Tile tile = pieces1.getCurrentTile();
-        tile.setOcc(false);
-        tile.setPiece(null);
-        this.board[row][col].setOcc(true); this.board[row][col].setPiece(pieces1);
-
-        for(Pieces p1 : opp){
-            Moves moves = this.getPieceMove(p1);
-            if(moves.isCheck()){
-                tile.setPiece(pieces1);
-                tile.setOcc(true);
-                this.board[row][col].setOcc(false); this.board[row][col].setPiece(null);
-                return true;
+        if(checkPiece != null){
+            if(checkPiece.getCurrentTile() == board[row][col]){
+                opp.remove(checkPiece);
+                for(Pieces p1 : opp){
+                    Moves moves = this.getPieceMove(p1);
+                    if(moves.isCheck()){
+                        tile.setPiece(pieces1);
+                        tile.setOcc(true);
+                        this.board[row][col].setOcc(false); this.board[row][col].setPiece(null);
+                        return true;
+                    }
+                }
             }
+            else {
+                for(Pieces p1 : opp){
+                    Moves moves = this.getPieceMove(p1);
+                    if(moves.isCheck()){
+                        tile.setPiece(pieces1);
+                        tile.setOcc(true);
+                        this.board[row][col].setOcc(false); this.board[row][col].setPiece(null);
+                        return true;
+                    }
+                }
+            }
+
         }
+
         tile.setPiece(pieces1);
         tile.setOcc(true);
         this.board[row][col].setOcc(false); this.board[row][col].setPiece(null);

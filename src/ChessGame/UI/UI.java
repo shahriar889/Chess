@@ -42,6 +42,7 @@ public class UI extends JFrame {
     }
 
     private JPanel[][] tileList;
+    private boolean canDo;
     private GameBoard gameBoard;
     private ClickStateWrapperClass aClass;
     private final int tile_size = 100;
@@ -54,6 +55,7 @@ public class UI extends JFrame {
     }
 
     public UI() {
+        canDo = true;
         isCheckColor = null;
         aClass = new ClickStateWrapperClass(click_State.FIRST_CLICK);
         turn = Color.WHITE;
@@ -101,22 +103,62 @@ public class UI extends JFrame {
                             }
                         } else if (aClass.getState() == click_State.Second_Click) {
                             Tile tile = (gameBoard.getTile(x, y));
+                            Tile tile1 = selectedPiece.getCurrentTile();
                             System.out.println(currentPieceMove.getMoveList().size());
                             if (currentPieceMove.getMoveList().contains(tile) && isCheckColor == null) {
-                                aClass.setState(click_State.FIRST_CLICK);
-                                putPieceInTile(x, y, selectedPiece);
-                                if (turn == Color.WHITE) {
-                                    turn = Color.BLACK;
-                                } else {
-                                    turn = Color.WHITE;
+                                boolean isOccBe = tile.isOcc();
+                                Pieces curPiece = tile.getPiece();
+                                if(!isOccBe){
+                                    tile.setOcc(true);
                                 }
+                                tile.setPiece(selectedPiece);
+                                tile1.setPiece(null);
+                                tile1.setOcc(false);
+                                selectedPiece.setCurrentTile(tile);
+
                                 isCheckColor = IsCheck(gameBoard.getP1Pieces(), gameBoard.getP2Pieces());
-                                if(isCheckColor != null){
-                                    checkPiece = tile.getPiece();
-                                    System.out.println("Check Happened");
+                                if(isCheckColor == null){
+                                    checkPiece = null;
+                                    System.out.println("NULL");
+                                    canDo = true;
+                                }
+                                else if(isCheckColor == turn){
+                                    System.out.println("Cannot do move, check happens");
+                                    if(!isOccBe){
+                                        tile.setOcc(false);
+                                        tile.setPiece(null);
+                                    }
+                                    else{
+                                        tile.setPiece(curPiece);
+                                        System.out.println("HAHA");
+                                    }
+                                    isCheckColor = null;
+                                    tile1.setOcc(true);
+                                    tile1.setPiece(selectedPiece);
+                                    selectedPiece.setCurrentTile(tile1);
+                                    aClass.setState(click_State.FIRST_CLICK);
+                                    canDo = false;
                                 }
                                 else {
-                                    checkPiece = null;
+                                    checkPiece = tile.getPiece();
+                                    System.out.println("Check Happened");
+                                    canDo = true;
+                                }
+                                if(canDo == true){
+                                    tile.setPiece(curPiece);
+                                    if(!isOccBe){
+                                        tile.setOcc(false);
+                                    }
+                                    tile1.setPiece(selectedPiece);
+                                    tile1.setOcc(true);
+                                    selectedPiece.setCurrentTile(tile1);
+                                    aClass.setState(click_State.FIRST_CLICK);
+                                    putPieceInTile(x, y, selectedPiece);
+                                    if (turn == Color.WHITE) {
+                                        turn = Color.BLACK;
+                                    } else {
+                                        turn = Color.WHITE;
+                                    }
                                 }
 
                             } else if (isCheckColor != null) {
