@@ -4,11 +4,17 @@ import ChessGame.GameLogic.Piece.*;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public class GameBoard {
     private Tile[][] board;
+
     private ArrayList<Pieces> P1Pieces;
     private ArrayList<Pieces> P2Pieces;
+
+
+
 
     public GameBoard(){
         P1Pieces = new ArrayList<>();
@@ -42,35 +48,35 @@ public class GameBoard {
         Tile tile1 = this.getTile(7,0); Tile tile2 = this.getTile(7,7);
         tile1.setOcc(true); tile2.setOcc(true);
         tile1.setPiece(new Rook(Color.WHITE, tile1)); tile2.setPiece(new Rook(Color.WHITE, tile2));
-        P1Pieces.add(tile1.getPiece()); P2Pieces.add(tile2.getPiece());
+        P1Pieces.add(tile1.getPiece()); P1Pieces.add(tile2.getPiece());
         tile1 = this.getTile(7,1); tile2 = this.getTile(7,6);
         tile1.setOcc(true); tile2.setOcc(true);
         tile1.setPiece(new Knight(Color.WHITE, tile1)); tile2.setPiece(new Knight(Color.WHITE, tile2));
-        P1Pieces.add(tile1.getPiece()); P2Pieces.add(tile2.getPiece());
+        P1Pieces.add(tile1.getPiece()); P1Pieces.add(tile2.getPiece());
         tile1 = this.getTile(7,2); tile2 = this.getTile(7,5);
         tile1.setOcc(true); tile2.setOcc(true);
         tile1.setPiece(new Bishop(Color.WHITE, tile1)); tile2.setPiece(new Bishop(Color.WHITE, tile2));
-        P1Pieces.add(tile1.getPiece()); P2Pieces.add(tile2.getPiece());
+        P1Pieces.add(tile1.getPiece()); P1Pieces.add(tile2.getPiece());
         tile1 = this.getTile(7,3); tile2 = this.getTile(7,4);
         tile1.setOcc(true); tile2.setOcc(true);
         tile1.setPiece(new King(Color.WHITE, tile1)); tile2.setPiece(new Queen(Color.WHITE, tile2));
-        P1Pieces.add(tile1.getPiece()); P2Pieces.add(tile2.getPiece());
+        P1Pieces.add(tile1.getPiece()); P1Pieces.add(tile2.getPiece());
         tile1 = this.getTile(0,0); tile2 = this.getTile(0,7);
         tile1.setOcc(true); tile2.setOcc(true);
         tile1.setPiece(new Rook(Color.BLACK, tile1)); tile2.setPiece(new Rook(Color.BLACK, tile2));
-        P1Pieces.add(tile1.getPiece()); P2Pieces.add(tile2.getPiece());
+        P2Pieces.add(tile1.getPiece()); P2Pieces.add(tile2.getPiece());
         tile1 = this.getTile(0,1); tile2 = this.getTile(0,6);
         tile1.setOcc(true); tile2.setOcc(true);
         tile1.setPiece(new Knight(Color.BLACK, tile1)); tile2.setPiece(new Knight(Color.BLACK, tile2));
-        P1Pieces.add(tile1.getPiece()); P2Pieces.add(tile2.getPiece());
+        P2Pieces.add(tile1.getPiece()); P2Pieces.add(tile2.getPiece());
         tile1 = this.getTile(0,2); tile2 = this.getTile(0,5);
         tile1.setOcc(true); tile2.setOcc(true);
         tile1.setPiece(new Bishop(Color.BLACK, tile1)); tile2.setPiece(new Bishop(Color.BLACK, tile2));
-        P1Pieces.add(tile1.getPiece()); P2Pieces.add(tile2.getPiece());
+        P2Pieces.add(tile1.getPiece()); P2Pieces.add(tile2.getPiece());
         tile1 = this.getTile(0,3); tile2 = this.getTile(0,4);
         tile1.setOcc(true); tile2.setOcc(true);
         tile1.setPiece(new King(Color.BLACK, tile1)); tile2.setPiece(new Queen(Color.BLACK, tile2));
-        P1Pieces.add(tile1.getPiece()); P2Pieces.add(tile2.getPiece());
+        P2Pieces.add(tile1.getPiece()); P2Pieces.add(tile2.getPiece());
 //        tile1 = this.getTile(5,4); tile1.setOcc(true); tile1.setPiece(new Pawn(Color.BLACK, tile1));
 //        tile2 = this.getTile(3,3); tile2.setOcc(true); tile2.setPiece(new Knight(Color.white, tile2));
 
@@ -106,10 +112,10 @@ public class GameBoard {
         if(pieces.getType().equals("Pawn") && pieces.getColor() == Color.WHITE){
             int xCur = tile.getRow();
             int yCur = tile.getCol();
-            System.out.println("In White Pawn");
+//            System.out.println("In White Pawn");
             if(this.getTile(xCur-1,yCur) != null){
                 if(this.getTile(xCur-1,yCur).isOcc() == false) {
-                    System.out.println("X: " + (xCur -1)+ " Y: " + (yCur));
+//                    System.out.println("X: " + (xCur -1)+ " Y: " + (yCur));
                     moves.getMoveList().add(this.getTile(xCur-1, yCur));
                 }
             }
@@ -139,10 +145,10 @@ public class GameBoard {
         else if(pieces.getType().equals("Pawn") && pieces.getColor() == Color.BLACK){
             int xCur = tile.getRow();
             int yCur = tile.getCol();
-            System.out.println("In Black Pawn");
+//            System.out.println("In Black Pawn");
             if(this.getTile(xCur+1,yCur) != null){
                 if(this.getTile(xCur+1,yCur).isOcc() == false) {
-                    System.out.println("X: " + (xCur +1)+ " Y: " + (yCur));
+//                    System.out.println("X: " + (xCur +1)+ " Y: " + (yCur));
                     moves.getMoveList().add(this.getTile(xCur+1, yCur));
                 }
             }
@@ -170,36 +176,36 @@ public class GameBoard {
             }
         }
         else if (!pieces.getType().equals("Pawn") && !pieces.getType().equals("King") && !pieces.getType().equals("Knight")){
-            System.out.println("This piece is a "+ pieces.getColor().toString()+" "+pieces.getType());
+//            System.out.println("This piece is a "+ pieces.getColor().toString()+" "+pieces.getType());
             for(int i = 0; i < pieces.getDirection().length;i++){
                 int xCur = tile.getRow();
                 int yCur = tile.getCol();
-                System.out.println(pieces.getDirection().length);
-                System.out.println("In direction "+i);
-                    Point dir = pieces.getDirection()[i];
-                    while (isStop == false){
-                        if(this.getTile(xCur+dir.x, yCur+dir.y) != null){
-                            if(this.getTile(xCur+dir.x, yCur+dir.y).isOcc() == false) {
-                                moves.getMoveList().add(this.getTile(xCur + dir.x, yCur + dir.y));
-                                xCur = xCur + dir.x;
-                                yCur = yCur + dir.y;
-                            }
-                            else {
-                                isStop = true;
-                            }
+//                System.out.println(pieces.getDirection().length);
+//                System.out.println("In direction "+i);
+                Point dir = pieces.getDirection()[i];
+                while (isStop == false){
+                    if(this.getTile(xCur+dir.x, yCur+dir.y) != null){
+                        if(this.getTile(xCur+dir.x, yCur+dir.y).isOcc() == false) {
+                            moves.getMoveList().add(this.getTile(xCur + dir.x, yCur + dir.y));
+                            xCur = xCur + dir.x;
+                            yCur = yCur + dir.y;
                         }
                         else {
                             isStop = true;
                         }
                     }
-                    if(this.getTile(xCur+dir.x, yCur+dir.y) != null){
-                        if(this.getTile(xCur+dir.x, yCur+dir.y).isOcc() &&this.getTile(xCur+dir.x, yCur+dir.y).getPiece().getColor() != pieces.getColor()) {
-                            if (this.getTile(xCur + dir.x, yCur + dir.y).getPiece().getType().equals("King")) {
-                                moves.setCheck(true);
-                            }
-                            moves.getMoveList().add(this.getTile(xCur+dir.x, yCur+dir.y));
-                        }
+                    else {
+                        isStop = true;
                     }
+                }
+                if(this.getTile(xCur+dir.x, yCur+dir.y) != null){
+                    if(this.getTile(xCur+dir.x, yCur+dir.y).isOcc() &&this.getTile(xCur+dir.x, yCur+dir.y).getPiece().getColor() != pieces.getColor()) {
+                        if (this.getTile(xCur + dir.x, yCur + dir.y).getPiece().getType().equals("King")) {
+                            moves.setCheck(true);
+                        }
+                        moves.getMoveList().add(this.getTile(xCur+dir.x, yCur+dir.y));
+                    }
+                }
                 isStop = false;
             }
 
@@ -224,5 +230,55 @@ public class GameBoard {
         }
 
         return moves;
+    }
+
+    public void removePieceFromPlayer(Pieces pieces){
+        Color color = pieces.getColor();
+        if(color == Color.WHITE){
+            this.P1Pieces.remove(pieces);
+        }
+        else {
+            this.P2Pieces.remove(pieces);
+        }
+    }
+
+    public boolean isCheck(int row, int col, Pieces pieces1, Pieces checkPiece){
+        if(checkPiece != null){
+            if(checkPiece.getCurrentTile() == board[row][col])
+                return false;
+        }
+        ArrayList<Pieces> opp;
+        if(pieces1.getColor() == Color.WHITE) {
+            opp = P2Pieces;
+        }
+        else {
+            opp = P1Pieces;
+        }
+        Tile tile = pieces1.getCurrentTile();
+        tile.setOcc(false);
+        tile.setPiece(null);
+        this.board[row][col].setOcc(true); this.board[row][col].setPiece(pieces1);
+
+        for(Pieces p1 : opp){
+            Moves moves = this.getPieceMove(p1);
+            if(moves.isCheck()){
+                tile.setPiece(pieces1);
+                tile.setOcc(true);
+                this.board[row][col].setOcc(false); this.board[row][col].setPiece(null);
+                return true;
+            }
+        }
+        tile.setPiece(pieces1);
+        tile.setOcc(true);
+        this.board[row][col].setOcc(false); this.board[row][col].setPiece(null);
+        return false;
+    }
+
+    public ArrayList<Pieces> getP1Pieces() {
+        return P1Pieces;
+    }
+
+    public ArrayList<Pieces> getP2Pieces() {
+        return P2Pieces;
     }
 }
