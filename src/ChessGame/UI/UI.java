@@ -16,7 +16,7 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class UI extends JFrame {
-    private Pieces checkPiece;
+
 
     private Color isCheckColor;
 
@@ -84,6 +84,10 @@ public class UI extends JFrame {
                         if (aClass.getState() == click_State.FIRST_CLICK) {
                             Tile tile = (gameBoard.getTile(x, y));
                             if (tile.isOcc() && turn == tile.getPiece().getColor()) {
+                                if(gameBoard.isCheckMate(turn) == true){
+                                    System.out.println("Game Over");
+                                    System.exit(-1);
+                                }
                                 if (isCheckColor == null || turn == isCheckColor) {
                                     if(isCheckColor == Color.WHITE)
                                         System.out.println(" check on white");
@@ -102,91 +106,35 @@ public class UI extends JFrame {
                                 }
                             }
                         } else if (aClass.getState() == click_State.Second_Click) {
-                            Tile tile = (gameBoard.getTile(x, y));
-                            Tile tile1 = selectedPiece.getCurrentTile();
+                            Tile moveTile = (gameBoard.getTile(x, y));
+                            final int x = moveTile.getRow(); final int y = moveTile.getCol();
+                            Tile pieceTile = selectedPiece.getCurrentTile();
                             System.out.println(currentPieceMove.getMoveList().size());
-                            if (currentPieceMove.getMoveList().contains(tile) && isCheckColor == null) {
-                                boolean isOccBe = tile.isOcc();
-                                Pieces curPiece = tile.getPiece();
-                                if(!isOccBe){
-                                    tile.setOcc(true);
-                                }
-                                tile.setPiece(selectedPiece);
-                                tile1.setPiece(null);
-                                tile1.setOcc(false);
-                                selectedPiece.setCurrentTile(tile);
+                            if(gameBoard.canDoMove(selectedPiece, moveTile) == false){
+                                System.out.println("Tile not in move or self-check happens");
+                            }
+                            else if (gameBoard.canDoMove(selectedPiece, moveTile) && isCheckColor == null) {
+                                System.out.println("before move no check");
+                                putPieceInTile(x,y,selectedPiece);
+                                isCheckColor = gameBoard.isCheck();
+                                aClass.setState(click_State.FIRST_CLICK);
+                                if (turn == Color.WHITE) {
+                                        turn = Color.BLACK;
+                                    } else {
+                                        turn = Color.WHITE;
+                                    }
 
-                                isCheckColor = IsCheck(gameBoard.getP1Pieces(), gameBoard.getP2Pieces());
-                                if(isCheckColor == null){
-                                    checkPiece = null;
-                                    System.out.println("NULL");
-                                    canDo = true;
-                                }
-                                else if(isCheckColor == turn){
-                                    System.out.println("Cannot do move, check happens");
-                                    if(!isOccBe){
-                                        tile.setOcc(false);
-                                        tile.setPiece(null);
-                                    }
-                                    else{
-                                        tile.setPiece(curPiece);
-                                        System.out.println("HAHA");
-                                    }
-                                    isCheckColor = null;
-                                    tile1.setOcc(true);
-                                    tile1.setPiece(selectedPiece);
-                                    selectedPiece.setCurrentTile(tile1);
+                           } else if (isCheckColor != null) {
+                                System.out.println("Under Check");
+                                if(gameBoard.canDoMove(selectedPiece, moveTile)){
+                                    putPieceInTile(x,y,selectedPiece);
                                     aClass.setState(click_State.FIRST_CLICK);
-                                    canDo = false;
                                 }
                                 else {
-                                    checkPiece = tile.getPiece();
-                                    System.out.println("Check Happened");
-                                    canDo = true;
-                                }
-                                if(canDo == true){
-                                    tile.setPiece(curPiece);
-                                    if(!isOccBe){
-                                        tile.setOcc(false);
-                                    }
-                                    tile1.setPiece(selectedPiece);
-                                    tile1.setOcc(true);
-                                    selectedPiece.setCurrentTile(tile1);
-                                    aClass.setState(click_State.FIRST_CLICK);
-                                    putPieceInTile(x, y, selectedPiece);
-                                    if (turn == Color.WHITE) {
-                                        turn = Color.BLACK;
-                                    } else {
-                                        turn = Color.WHITE;
-                                    }
+                                    System.out.println("Can do Move still under check");
                                 }
 
-                            } else if (isCheckColor != null) {
-                                System.out.println("Under Check");
-                                boolean isCheck = gameBoard.isCheck(x, y, selectedPiece, checkPiece);
-                                if (isCheck == false) {
-                                    putPieceInTile(x,y, selectedPiece);
-                                    isCheckColor = null;
-                                    if (turn == Color.WHITE) {
-                                        turn = Color.BLACK;
-                                    } else {
-                                        turn = Color.WHITE;
-                                    }
-                                    aClass.setState(click_State.FIRST_CLICK);
-                                    isCheckColor = IsCheck(gameBoard.getP1Pieces(), gameBoard.getP2Pieces());
-                                    if (isCheckColor != null){
-                                        checkPiece = tile.getPiece();
-                                    }
-                                    else {
-                                        checkPiece = null;
-                                    }
-                                } else {
-                                    aClass.setState(click_State.FIRST_CLICK);
-                                    System.out.println("King is still under Check, choose piece again");
                                 }
-
-                            } else {
-                                System.out.println("Invalid Move, do again");
                             }
 
                         }
@@ -199,7 +147,7 @@ public class UI extends JFrame {
 //                                "y co-ordinate: "+moves.getMoveList().get(xx).getCol());
 //                            }
 //                        }
-                    }
+
                 });
                 contentPane.add(panel);
             }
@@ -223,9 +171,8 @@ public class UI extends JFrame {
         int x = tile1.getRow();
         int y = tile1.getCol();
         tileList[x][y].repaint();
-        if (tile.isOcc() == false) {
-            tile.setOcc(true);
-        }
+        tile.setOcc(true);
+
         tile.setPiece(pieces);
         pieces.setCurrentTile(tile);
         tileList[row][col].repaint(); // Repaint the tile panel to reflect the changes

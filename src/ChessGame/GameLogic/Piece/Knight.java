@@ -1,6 +1,7 @@
 package ChessGame.GameLogic.Piece;
 
 import ChessGame.GameLogic.Tile;
+import com.sun.security.auth.module.JndiLoginModule;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -16,6 +17,7 @@ public class Knight implements Pieces{
     private BufferedImage imgWhite;
     private BufferedImage imgBlack;
     private Point[] direction;
+
 
     @Override
     public Tile getCurrentTile() {

@@ -88,4 +88,6 @@ public class Pawn implements Pieces {
     public String getType() {
         return type;
     }
+
+
 }

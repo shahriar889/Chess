@@ -19,6 +19,7 @@ public class King implements Pieces{
 
     private Tile currentTile;
 
+
     @Override
     public Tile getCurrentTile() {
         return currentTile;

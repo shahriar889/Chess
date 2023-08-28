@@ -17,4 +17,5 @@ public interface Pieces {
      Tile getCurrentTile();
      void setCurrentTile(Tile tile);
 
+
 }

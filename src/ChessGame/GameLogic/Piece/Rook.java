@@ -18,6 +18,9 @@ public class Rook implements Pieces{
 
     private Point[] direction;
 
+
+
+
     @Override
     public Tile getCurrentTile() {
         return currentTile;

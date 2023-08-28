@@ -15,7 +15,6 @@ public class GameBoard {
 
 
 
-
     public GameBoard(){
         P1Pieces = new ArrayList<>();
         P2Pieces = new ArrayList<>();
@@ -242,49 +241,21 @@ public class GameBoard {
         }
     }
 
-    public boolean isCheck(int row, int col, Pieces pieces1, Pieces checkPiece){
-        ArrayList<Pieces> opp;
-        Tile tile = pieces1.getCurrentTile();
-        tile.setOcc(false);
-        tile.setPiece(null);
-        this.board[row][col].setOcc(true); this.board[row][col].setPiece(pieces1);
-        if(pieces1.getColor() == Color.WHITE) {
-            opp = P2Pieces;
-        }
-        else {
-            opp = P1Pieces;
-        }
-        if(checkPiece != null){
-            if(checkPiece.getCurrentTile() == board[row][col]){
-                opp.remove(checkPiece);
-                for(Pieces p1 : opp){
-                    Moves moves = this.getPieceMove(p1);
-                    if(moves.isCheck()){
-                        tile.setPiece(pieces1);
-                        tile.setOcc(true);
-                        this.board[row][col].setOcc(false); this.board[row][col].setPiece(null);
-                        return true;
-                    }
-                }
+    public Color isCheck(){
+        for (Pieces pieces: P1Pieces){
+            Moves moves = getPieceMove(pieces);
+            if(moves.isCheck()){
+                return Color.BLACK;
             }
-            else {
-                for(Pieces p1 : opp){
-                    Moves moves = this.getPieceMove(p1);
-                    if(moves.isCheck()){
-                        tile.setPiece(pieces1);
-                        tile.setOcc(true);
-                        this.board[row][col].setOcc(false); this.board[row][col].setPiece(null);
-                        return true;
-                    }
-                }
-            }
-
         }
+        for (Pieces pieces: P2Pieces){
+            Moves moves = getPieceMove(pieces);
+            if(moves.isCheck()){
+                return Color.WHITE;
+            }
+        }
+        return null;
 
-        tile.setPiece(pieces1);
-        tile.setOcc(true);
-        this.board[row][col].setOcc(false); this.board[row][col].setPiece(null);
-        return false;
     }
 
     public ArrayList<Pieces> getP1Pieces() {
@@ -293,5 +264,42 @@ public class GameBoard {
 
     public ArrayList<Pieces> getP2Pieces() {
         return P2Pieces;
+    }
+    public boolean isCheckMate(Color turn){
+        ArrayList<Pieces> player;
+        if(turn == Color.WHITE){
+            player = P1Pieces;
+        }
+        else {
+            player = P2Pieces;
+        }
+        for (Pieces playerPieces: player) {
+            Moves playerMoves = getPieceMove(playerPieces);
+            for (Tile playerMovesTile : playerMoves.getMoveList()) {
+                if (canDoMove(playerPieces, playerMovesTile) == true) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+    public boolean canDoMove(Pieces pieces, Tile tile){
+        Color opp = (pieces.getColor() == Color.WHITE) ? Color.BLACK:Color.WHITE;
+        Moves moves = getPieceMove(pieces); // moves for piece sent
+        Tile pieceTile = pieces.getCurrentTile(); // current tile of piece sent;
+        boolean isOccBe = tile.isOcc(); // is tile occ before move
+        Pieces tilePiece = tile.getPiece(); // piece in tile before move
+        if (moves.getMoveList().contains(tile)) {
+            pieceTile.setOcc(false); pieceTile.setPiece(null);
+            tile.setOcc(true); tile.setPiece(pieces);
+            if(isCheck() == null || isCheck() == opp){
+                tile.setOcc(isOccBe); tile.setPiece(tilePiece);
+                pieceTile.setOcc(true); pieceTile.setPiece(pieces);
+                return true;
+            }
+        }
+        tile.setOcc(isOccBe); tile.setPiece(tilePiece);
+        pieceTile.setOcc(true); pieceTile.setPiece(pieces);
+        return false;
     }
 }

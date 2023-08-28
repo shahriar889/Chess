@@ -36,6 +36,8 @@ public class Tile {
         return color;
     }
 
+
+
     //constructor
     public Tile(Color color, int row, int col){
         this.col = col;

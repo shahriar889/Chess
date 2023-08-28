@@ -17,6 +17,8 @@ public class Bishop implements Pieces{
     private BufferedImage imgBlack;
     private Point[] direction;
 
+
+
     @Override
     public Tile getCurrentTile() {
         return currentTile;

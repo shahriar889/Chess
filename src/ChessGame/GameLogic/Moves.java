@@ -2,9 +2,11 @@ package ChessGame.GameLogic;
 
 import java.util.ArrayList;
 
-public class Moves {
+public class Moves{
     private ArrayList<Tile> moveList;
     private boolean isCheck;
+
+
 
     public Moves() {
         this.moveList = new ArrayList<>();
