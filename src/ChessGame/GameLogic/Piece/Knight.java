@@ -17,7 +17,10 @@ public class Knight implements Pieces{
     private BufferedImage imgWhite;
     private BufferedImage imgBlack;
     private Point[] direction;
-
+    @Override
+    public Color getTileColor(){
+        return null;
+    }
 
     @Override
     public Tile getCurrentTile() {

@@ -18,7 +18,10 @@ public class King implements Pieces{
     private Point[] direction;
 
     private Tile currentTile;
-
+    @Override
+    public Color getTileColor(){
+        return null;
+    }
 
     @Override
     public Tile getCurrentTile() {

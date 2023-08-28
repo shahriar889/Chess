@@ -18,7 +18,10 @@ public class Queen implements Pieces{
 
     private Point[] direction;
 
-
+    @Override
+    public Color getTileColor(){
+        return null;
+    }
 
     @Override
     public Tile getCurrentTile() {

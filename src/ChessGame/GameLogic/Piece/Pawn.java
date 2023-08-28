@@ -68,6 +68,10 @@ public class Pawn implements Pieces {
     }
 
     @Override
+    public Color getTileColor(){
+        return null;
+    }
+    @Override
     public BufferedImage getImgWhite() {
         return imgWhite;
     }

@@ -30,6 +30,10 @@ public class Rook implements Pieces{
     public Point[] getDirection() {
         return direction;
     }
+    @Override
+    public Color getTileColor(){
+        return null;
+    }
 
     public Rook(Color color, Tile tile) {
         this.currentTile = tile;

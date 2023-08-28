@@ -241,6 +241,16 @@ public class GameBoard {
         }
     }
 
+    public void addPieceInPlayer(Pieces pieces){
+        Color color = pieces.getColor();
+        if(color == Color.WHITE){
+            this.P1Pieces.add(pieces);
+        }
+        else {
+            this.P2Pieces.add(pieces);
+        }
+    }
+
     public Color isCheck(){
         for (Pieces pieces: P1Pieces){
             Moves moves = getPieceMove(pieces);
@@ -290,16 +300,105 @@ public class GameBoard {
         boolean isOccBe = tile.isOcc(); // is tile occ before move
         Pieces tilePiece = tile.getPiece(); // piece in tile before move
         if (moves.getMoveList().contains(tile)) {
+            if(isOccBe == true){
+                removePieceFromPlayer(tilePiece);
+            }
             pieceTile.setOcc(false); pieceTile.setPiece(null);
             tile.setOcc(true); tile.setPiece(pieces);
             if(isCheck() == null || isCheck() == opp){
-                tile.setOcc(isOccBe); tile.setPiece(tilePiece);
+                tile.setOcc(isOccBe);
                 pieceTile.setOcc(true); pieceTile.setPiece(pieces);
+                if(isOccBe == true){
+                    addPieceInPlayer(tilePiece);
+                    tile.setPiece(tilePiece);
+                }
                 return true;
             }
         }
-        tile.setOcc(isOccBe); tile.setPiece(tilePiece);
+        if(isOccBe == true){
+            addPieceInPlayer(tilePiece);
+            tile.setPiece(tilePiece);
+        }
+        tile.setOcc(isOccBe);
         pieceTile.setOcc(true); pieceTile.setPiece(pieces);
         return false;
+    }
+    public boolean isStaleMate(){
+        if(P1Pieces.size() == 1 && P2Pieces.size() == 1){
+            if(P1Pieces.get(0).getType().equals("King") && P2Pieces.get(0).getType().equals("King")){
+                return true;
+            }
+        }
+        else if(P1Pieces.size() == 2 && P2Pieces.size() == 1){
+            ArrayList<String> P1String = new ArrayList<>();
+            P1String.add(P1Pieces.get(0).getType());
+            P1String.add(P1Pieces.get(1).getType());
+            Pieces pieces2 = P2Pieces.get(0);
+            if(P1String.contains("King")){
+                if(P1String.contains("Bishop") || P1String.contains("Knight")) {
+                    if (pieces2.getType().equals("King")) {
+                        return true;
+                    }
+                }
+            }
+        }
+        else if(P1Pieces.size() == 1 && P2Pieces.size() == 2){
+            ArrayList<String> P2String = new ArrayList<>();
+            P2String.add(P2Pieces.get(0).getType());
+            P2String.add(P2Pieces.get(1).getType());
+            Pieces pieces2 = P1Pieces.get(0);
+            if(P2String.contains("King")){
+                if(P2String.contains("Bishop") || P2String.contains("Knight")) {
+                    if (pieces2.getType().equals("King")) {
+                        return true;
+                    }
+                }
+            }
+        }
+        else if(P1Pieces.size() == 2 && P2Pieces.size() == 2){
+            ArrayList<String> P2String = new ArrayList<>();
+            P2String.add(P2Pieces.get(0).getType());
+            P2String.add(P2Pieces.get(1).getType());
+            ArrayList<String> P1String = new ArrayList<>();
+            P2String.add(P1Pieces.get(0).getType());
+            P2String.add(P1Pieces.get(1).getType());
+            if (P1String.contains("King") && P2String.contains("King")) {
+                if (P1String.contains("Bishop") && P2String.contains("Bishop")) {
+                    Color colorP1 = Color.BLUE;
+                    Color colorP2 = Color.CYAN;
+                    for (int i = 0; i < 2; i++) {
+                        if (P1Pieces.get(0).getTileColor() != null) {
+                            colorP1 = P1Pieces.get(0).getTileColor();
+                        }
+                        if (P2Pieces.get(0).getTileColor() != null) {
+                            colorP2 = P2Pieces.get(0).getTileColor();
+                        }
+                        if (colorP1 == colorP2){
+                            return true;
+                        }
+
+                    }
+                }
+            }
+        }
+        else {
+            for(Pieces pieces:P1Pieces){
+                Moves moves = getPieceMove(pieces);
+                for(Tile tile:moves.getMoveList()){
+                    if(canDoMove(pieces, tile) == true){
+                        return false;
+                    }
+                }
+            }
+            for(Pieces pieces:P2Pieces){
+                Moves moves = getPieceMove(pieces);
+                for(Tile tile:moves.getMoveList()){
+                    if(canDoMove(pieces, tile) == true){
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
     }
 }

@@ -82,10 +82,15 @@ public class UI extends JFrame {
                     @Override
                     public void mouseClicked(MouseEvent e) {
                         if (aClass.getState() == click_State.FIRST_CLICK) {
+                            System.out.println(turn);
                             Tile tile = (gameBoard.getTile(x, y));
                             if (tile.isOcc() && turn == tile.getPiece().getColor()) {
                                 if(gameBoard.isCheckMate(turn) == true){
                                     System.out.println("Game Over");
+                                    System.exit(-1);
+                                }
+                                if(gameBoard.isStaleMate() == true){
+                                    System.out.println("Game Over, Stalemate");
                                     System.exit(-1);
                                 }
                                 if (isCheckColor == null || turn == isCheckColor) {
@@ -108,7 +113,6 @@ public class UI extends JFrame {
                         } else if (aClass.getState() == click_State.Second_Click) {
                             Tile moveTile = (gameBoard.getTile(x, y));
                             final int x = moveTile.getRow(); final int y = moveTile.getCol();
-                            Tile pieceTile = selectedPiece.getCurrentTile();
                             System.out.println(currentPieceMove.getMoveList().size());
                             if(gameBoard.canDoMove(selectedPiece, moveTile) == false){
                                 System.out.println("Tile not in move or self-check happens");
@@ -127,13 +131,26 @@ public class UI extends JFrame {
                            } else if (isCheckColor != null) {
                                 System.out.println("Under Check");
                                 if(gameBoard.canDoMove(selectedPiece, moveTile)){
+                                    System.out.println("Check Cleared");
                                     putPieceInTile(x,y,selectedPiece);
+                                    if (turn == Color.WHITE) {
+                                        turn = Color.BLACK;
+                                        if(turn == Color.BLACK){
+                                            System.out.println("black");
+                                        }
+                                    } else {
+                                        turn = Color.WHITE;
+                                        if(turn == Color.WHITE){
+                                            System.out.println("white");
+                                        }
+                                    }
                                     aClass.setState(click_State.FIRST_CLICK);
+                                    isCheckColor = null;
                                 }
                                 else {
                                     System.out.println("Can do Move still under check");
+                                    aClass.setState(click_State.FIRST_CLICK);
                                 }
-
                                 }
                             }
 

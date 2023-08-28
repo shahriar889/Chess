@@ -10,7 +10,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Bishop implements Pieces{
+    private Color tileColor;
     private final String type = "Bishop";
+
+    @Override
+    public Color getTileColor() {
+        return tileColor;
+    }
+
     private Tile currentTile;
     private Color color;
     private BufferedImage imgWhite;
@@ -36,6 +43,7 @@ public class Bishop implements Pieces{
 
     public Bishop(Color color, Tile tile) {
         this.currentTile = tile;
+        this.tileColor = tile.getColor();
         this.color = color;
         if(this.color.equals(Color.WHITE)){
             try {
